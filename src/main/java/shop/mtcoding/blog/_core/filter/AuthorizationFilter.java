@@ -51,6 +51,7 @@ public class AuthorizationFilter implements Filter {
 
     }
 
+    // Filter - DS를 거치지 않고 바로 Tomcat으로 가기 때문에 직접 ResponseEntity를 꺼내줘야 함
     private void exResponse(HttpServletResponse response, String msg) throws IOException {
         response.setContentType("application/json;charset=utf-8");
         response.setStatus(401);
