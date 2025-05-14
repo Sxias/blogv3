@@ -32,16 +32,4 @@ public class UserResponse {
             this.createdAt = user.getCreatedAt().toString();
         }
     }
-
-    @Data
-    public static class TokenDTO {
-        private String accessToken;
-        private String refreshToken;
-
-        @Builder
-        public TokenDTO(String accessToken, String refreshToken) {
-            this.accessToken = accessToken;
-            this.refreshToken = refreshToken;
-        }
-    }
 }

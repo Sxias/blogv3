@@ -1,6 +1,7 @@
 package shop.mtcoding.blog.integre;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,9 @@ import shop.mtcoding.blog.user.User;
 
 import static org.hamcrest.Matchers.*;
 
-
+// SpringBootTest 내에는 @Transactional 미포함 : rollback을 위해 추가 -> 근본적 문제 해결 불가
+@Transactional
+//@Sql("classpath:db/teardown.sql") - 테스트용 DB 데이터셋 사용 : 지금은 미진행
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 public class BoardControllerTest {
@@ -110,7 +113,7 @@ public class BoardControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.title").value("제목4"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.content").value("내용4"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.isPublic").value(true));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.isOwner").value(false));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.isBoardOwner").value(false));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.isLove").value(false));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.loveCount").value(2));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.username").value("love"));
@@ -118,7 +121,7 @@ public class BoardControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.replies[0].id").value(3));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.replies[0].content").value("댓글3"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.replies[0].username").value("ssar"));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.replies[0].isOwner").value(false));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.body.replies[0].isReplyOwner").value(false));
     }
 
     @Test

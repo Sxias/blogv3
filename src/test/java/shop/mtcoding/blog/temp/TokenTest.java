@@ -40,8 +40,22 @@ public class TokenTest {
 
     @Test
     public void verify_test() {
-        // 2025. 05. 09. 11:50까지 유효
-        String jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJibG9ndjMiLCJpZCI6MSwiZXhwIjoxNzQ2NzYwMzM2LCJ1c2VybmFtZSI6InNzYXIifQ.6cTzyWjfQQmRP1OV0TyHDpnDdVV8zEc_6nd0JR8s8Kc";
+        User user = User.builder()
+                .id(1)
+                .username("ssar")
+                .password("$2a$10$93SObxZRuYAOT5a22IQDj.3j5XK3EQSIlzsD31BCS1Dyt3ISSA6ci")
+                .email("ssar@nate.com")
+                .createdAt(Timestamp.valueOf(LocalDateTime.now()))
+                .build();
+
+        String jwt = JWT.create()
+                // payload
+                .withSubject("blogv3")
+                .withExpiresAt(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
+                .withClaim("id", user.getId())
+                .withClaim("username", user.getUsername())
+                // HMAC256 - header
+                .sign(Algorithm.HMAC256("metacoding"));
 
         DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC256("metacoding")).build().verify(jwt);
         Integer id = decodedJWT.getClaim("id").asInt();
@@ -49,10 +63,5 @@ public class TokenTest {
 
         System.out.println(id);
         System.out.println(username);
-
-        User user = User.builder()
-                .id(id)
-                .username(username)
-                .build();
     }
 }

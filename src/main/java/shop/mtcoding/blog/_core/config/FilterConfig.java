@@ -31,13 +31,4 @@ public class FilterConfig {
         registrationBean.setOrder(1); // 필터 순서 설정
         return registrationBean;
     }
-
-    @Bean
-    public FilterRegistrationBean<AuthorizationFilter> authorizationFilter() {
-        FilterRegistrationBean<AuthorizationFilter> registrationBean = new FilterRegistrationBean<>();
-        registrationBean.setFilter(new AuthorizationFilter());
-        registrationBean.addUrlPatterns("/s/*"); // 모든 요청에 적용
-        registrationBean.setOrder(2); // 필터 순서 설정
-        return registrationBean;
-    }
 }
