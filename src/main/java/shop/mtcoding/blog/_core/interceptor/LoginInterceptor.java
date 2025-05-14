@@ -7,6 +7,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import shop.mtcoding.blog._core.error.ex.ExceptionApi401;
 import shop.mtcoding.blog.user.User;
 
+@Deprecated
 public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

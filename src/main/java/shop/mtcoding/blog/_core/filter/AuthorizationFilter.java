@@ -47,8 +47,6 @@ public class AuthorizationFilter implements Filter {
             e3.printStackTrace();
             exResponse(response, e3.getMessage());
         }
-
-
     }
 
     // Filter - DS를 거치지 않고 바로 Tomcat으로 가기 때문에 직접 ResponseEntity를 꺼내줘야 함

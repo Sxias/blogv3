@@ -5,6 +5,18 @@ import lombok.Data;
 
 public class UserResponse {
 
+    @Data
+    public static class TokenDTO {
+        private String accessToken;
+        private String refreshToken;
+
+        @Builder
+        public TokenDTO(String accessToken, String refreshToken) {
+            this.accessToken = accessToken;
+            this.refreshToken = refreshToken;
+        }
+    }
+
     // 규칙2 : DTO에 민감정보 빼기, 날짜는 String으로!! (날짜 공부하기전까지)
     @Data
     public static class DTO {
