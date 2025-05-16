@@ -36,7 +36,7 @@ public class FilterConfig {
     @Bean
     public FilterRegistrationBean<LogFilter> loggingFilter() {
         FilterRegistrationBean<LogFilter> registrationBean = new FilterRegistrationBean<>();
-        registrationBean.setFilter(new LogFilter(userRepository));
+        registrationBean.setFilter(new LogFilter());
         registrationBean.addUrlPatterns("/*"); // 모든 요청에 적용
         registrationBean.setOrder(3); // 필터 순서 설정
         return registrationBean;

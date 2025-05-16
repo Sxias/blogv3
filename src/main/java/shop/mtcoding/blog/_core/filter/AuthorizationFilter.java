@@ -32,9 +32,12 @@ public class AuthorizationFilter implements Filter {
 
             User user = JwtUtil.verify(accessToken);
 
+            System.out.println("token: " + accessToken);
+
             // 토큰 재검증 회피를 위한 임시 저장용 session
             HttpSession session = request.getSession();
             session.setAttribute("sessionUser", user);
+            System.out.println("token: " + accessToken);
 
             chain.doFilter(request, response);
         } catch (TokenExpiredException e1) {
